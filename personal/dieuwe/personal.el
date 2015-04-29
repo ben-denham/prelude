@@ -25,14 +25,24 @@
 ;; JS indent
 ;;(setq-default js-indent-level 2)
 
+;; Auto-save
+(setq-default auto-save-default nil)
+
 ;; Tabbing
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default indent-tabs-mode nil) ;; never use tab character
+(setq-default tab-width 2) ;; tab at 2 spaces
 (setq-default indent-line-function 'insert-tab)
+(setq-default js2-basic-offset 2)
+(setq-default js2-bounce-indent-p t)
 (setq-default web-mode-markup-indent-offset 2)
 (setq-default css-indent-offset 2)
 (setq-default web-mode-code-indent-offset 2)
 (setq-default web-mode-css-indent-offset 2)
+
+;; JS2 Config
+(setq-default js2-strict-missing-semi-warning nil)
+(setq-default js2-missing-semi-one-line-override t)
+(setq-default js2-strict-trailing-comma-warning nil)
 
 ;; save desktop when idle
 (run-with-idle-timer 300 t 'desktop-save-in-desktop-dir)
