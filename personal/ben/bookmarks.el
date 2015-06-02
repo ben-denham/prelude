@@ -5,6 +5,10 @@
 
 ;;; Code:
 
+(prelude-require-package 'bm)
+
+(require 'bm)
+
 ;; Load bookmarks when starting emacs.
 (setq bm-restore-repository-on-load t)
 

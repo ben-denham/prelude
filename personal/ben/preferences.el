@@ -6,7 +6,8 @@
 ;;; Code:
 
 ;; Save and load desktop on start
-(setq desktop-save-mode t)
+(custom-set-variables
+ '(desktop-save-mode t))
 
 ;; Indentation
 (setq-default indent-tabs-mode nil)
