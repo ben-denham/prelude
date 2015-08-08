@@ -1,4 +1,4 @@
-;;; ben/bookmarks.el -- summary
+;;; common/bookmarks.el -- summary
 
 ;;; Commentary:
 ;; Bookmarks configuration.
