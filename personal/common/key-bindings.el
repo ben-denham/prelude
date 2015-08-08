@@ -20,4 +20,7 @@
                            (interactive)
                            (switch-to-buffer (other-buffer))))
 
+;; Rebind delete key to delete-char function
+(global-set-key [delete] 'delete-char)
+
 ;;; key-bindings.el ends here
