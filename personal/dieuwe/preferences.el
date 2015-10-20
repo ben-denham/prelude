@@ -36,4 +36,8 @@
           '(lambda ()
              (define-key org-mode-map [(control tab)] nil)))
 
+;; Load direx to use instead of dired.
+(prelude-require-package 'direx)
+(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+
 ;;; preferences.el ends here
