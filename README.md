@@ -13,9 +13,9 @@ library to the mix. The final product offers an easy to use Emacs
 configuration for Emacs newcomers and lots of additional power for
 Emacs power users.
 
-Prelude is compatible **ONLY with GNU Emacs 24.x**. In general you're
+Prelude is compatible **ONLY with GNU Emacs 24.4+**. In general you're
 advised to always run Prelude with the latest Emacs - currently
-**24.4**.
+**24.5**.
 
 **Table of Contents**
 
@@ -265,7 +265,7 @@ Keybinding         | Description
 <kbd>C-+</kbd>     | Increase font size(`text-scale-increase`).
 <kbd>C--</kbd>     | Decrease font size(`text-scale-decrease`).
 <kbd>C-x O</kbd>   | Go back to previous window (the inverse of `other-window` (`C-x o`)).
-<kbd>C-^</kbd>     | Join two lines into one(`prelude-top-join-line`).
+<kbd>C-^</kbd>     | Join two lines into one(`crux-top-join-line`).
 <kbd>C-x p</kbd>   | Start `proced` (manage processes from Emacs; works only in Linux).
 <kbd>C-x m</kbd>   | Start `eshell`.
 <kbd>C-x M-m</kbd> | Start your default shell.
@@ -281,7 +281,7 @@ Keybinding         | Description
 <kbd>C-x M-g</kbd> | Open Magit's popup of popups.
 <kbd>M-Z</kbd>     | Zap up to char.
 <kbd>C-=</kbd>     | Run `expand-region` (incremental text selection).
-<kbd>C-a</kbd>     | Run `prelude-move-beginning-of-line`. Read [this](http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/) for details.
+<kbd>C-a</kbd>     | Run `crux-move-beginning-of-line`. Read [this](http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/) for details.
 
 #### Prelude Mode
 
@@ -369,7 +369,7 @@ Keybinding         | Description
 <kbd>C-c p e</kbd> | Shows a list of recently visited project files.
 <kbd>C-c p s a</kbd> | Runs `ack` on the project. Requires the presence of `ack-and-a-half`.
 <kbd>C-c p s s</kbd> | Runs `ag` on the project. Requires the presence of `ag.el`.
-<kbd>C-c p a</kbd> | Runs `ack` on the project. Requires the presence of `ack-and-a-half`.
+<kbd>C-c p a</kbd> | Switch between files with the same name but different extensions.
 <kbd>C-c p c</kbd> | Runs a standard compilation command for your type of project.
 <kbd>C-c p P</kbd> | Runs a standard test command for your type of project.
 <kbd>C-c p z</kbd> | Adds the currently visited to the cache.
@@ -432,7 +432,7 @@ Keybinding         | Description
 <kbd>jj</kbd>      | Jump to the beginning of a word(`avy-goto-word-1`)
 <kbd>jk</kbd>      | Jump to a character(`avy-goto-char`)
 <kbd>jl</kbd>      | Jump to the beginning of a line(`avy-goto-line`)
-<kbd>JJ</kbd>      | Jump back to previous buffer(`prelude-switch-to-previous-buffer`)
+<kbd>JJ</kbd>      | Jump back to previous buffer(`crux-switch-to-previous-buffer`)
 <kbd>uu</kbd>      | View edits as a tree(`undo-tree-visualize`)
 <kbd>xx</kbd>      | Executed extended command(`execute-extended-command`)
 <kbd>yy</kbd>      | Browse the kill ring(`browse-kill-ring`)
