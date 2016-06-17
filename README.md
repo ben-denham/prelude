@@ -1,5 +1,5 @@
 [![License GPL 3][badge-license]](http://www.gnu.org/licenses/gpl-3.0.txt)
-[![Gratipay](http://img.shields.io/gratipay/bbatsov.svg)](https://gratipay.com/bbatsov/)
+[![Gratipay Team](https://img.shields.io/gratipay/team/prelude.svg?maxAge=2592000)](https://gratipay.com/prelude/)
 
 Emacs Prelude
 =============
@@ -16,6 +16,12 @@ Emacs power users.
 Prelude is compatible **ONLY with GNU Emacs 24.4+**. In general you're
 advised to always run Prelude with the latest Emacs - currently
 **24.5**.
+
+You can support the development of Prelude via
+[Salt](https://salt.bountysource.com/teams/prelude) and
+[Gratipay](https://www.gratipay.com/prelude).
+
+[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.1.3/dist/gratipay.png)](https://gratipay.com/prelude)
 
 **Table of Contents**
 
@@ -53,7 +59,7 @@ advised to always run Prelude with the latest Emacs - currently
     - [Problems with flyspell-mode](#problems-with-flyspell-mode)
     - [Ugly colors in the terminal Emacs version](#ugly-colors-in-the-terminal-emacs-version)
     - [MELPA error on initial startup](#melpa-error-on-initial-startup)
-    - [Warnings on arrow navigation in editor buffers](#warnings-on-navigation-in-editor-buffers)
+    - [Warnings on arrow navigation in editor buffers](#warnings-on-arrow-navigation-in-editor-buffers)
     - [Customized C-a behavior](#customized-c-a-behavior)
     - [Poor ido matching performance on large datasets](#poor-ido-matching-performance-on-large-datasets)
     - [Windows compatibility](#windows-compatibility)
@@ -688,10 +694,6 @@ development of Emacs Prelude.
 
 Bug reports and suggestions for improvements are always
 welcome. GitHub pull requests are even better! :-)
-
-I'm also accepting financial contributions via [gittip](https://www.gittip.com/bbatsov).
-
-[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
 
 Cheers,<br/>
 [Bozhidar](https://twitter.com/bbatsov)
