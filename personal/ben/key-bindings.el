@@ -23,4 +23,9 @@
 (define-key cider-mode-map
   (kbd "C-x C-g") 'spit-scad-last-expression)
 
+(define-key octave-mode-map
+  (kbd "C-c C-j") 'octave-send-line)
+(define-key octave-mode-map
+  (kbd "C-c C-k") 'octave-send-defun)
+
 ;;; key-bindings.el ends here
