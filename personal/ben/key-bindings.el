@@ -23,6 +23,7 @@
 (define-key cider-mode-map
   (kbd "C-x C-g") 'spit-scad-last-expression)
 
+(require 'octave)
 (define-key octave-mode-map
   (kbd "C-c C-j") 'octave-send-line)
 (define-key octave-mode-map
