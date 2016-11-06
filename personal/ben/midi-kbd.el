@@ -64,57 +64,14 @@
 ;;; Code:
 
 
-(defconst midikbd-notenames
-  (vconcat
-   (cl-loop for i from 0 to 127
-	    collect (intern
-		     (format "%s_%d"
-			     (aref ["C" "Csharp" "D" "Dsharp" "E" "F"
-				    "Fsharp" "G" "Gsharp" "A" "Asharp" "B"]
-				   (mod i 12))
-			     (1- (/ i 12)))))))
+(defconst midikbd-command-types (vector
+                                 (make-symbol "NOTE_ON")
+                                 (make-symbol "NOTE_OFF")
+                                 (make-symbol "CONTROL_CHANGE")))
 
 ;; Necessary to allow bindings to <Ch1 C_4> without splitting events
-(cl-loop for key across midikbd-notenames do
+(cl-loop for key across midikbd-command-types do
 	 (put key 'event-kind 'mouse-click))
-
-;; We have `midikbd-notenames' for looking up the basic note name
-;; events, `midikbd-upnames' for the keyrelease events, and
-;; `midikbd-downnames' for the keypress events.  Those will, for now,
-;; produce the likes of `C_-1', `up-C_-1', and `C_-1': we don't
-;; actually use `down-C_-1' since the down-event is the principally
-;; important one most likely to be bound to keys.
-
-(defconst midikbd-downnames midikbd-notenames)
-
-(defconst midikbd-upnames
-  (vconcat
-   (cl-loop for i across midikbd-notenames
-	    collect
-	    (intern (concat "up-" (symbol-name i))))))
-
-;; Emacs can deal with up-events like with down-events since the patch
-;; in <URL:http://debbugs.gnu.org/cgi/bugreport.cgi?bug=19746> has
-;; been committed to Emacs.
-;;
-;; Older versions will erupt in violence when forced to deal with an
-;; uncached "up-" event, so we need to put the full cache in place
-;; ourselves.  We do this only if we find Emacs unable to identify
-;; up-events.
-
-;; Calling event-modifiers may poison the cache for up-C_-1 but since
-;; we overwrite it first thing afterwards, this is not really an
-;; issue.
-
-(unless (event-modifiers 'up-C_-1)
-  (cl-loop for key across midikbd-upnames for base across midikbd-notenames
-	   do
-	   (put key 'event-symbol-element-mask (list base 1))
-	   (put key 'event-symbol-elements (list base 'up))
-	   (let ((modc (get base 'modifier-cache)))
-	     (unless (assq 1 modc)
-	       (put base 'modifier-cache (cons (cons 1 key) modc))))))
-
 
 (defconst midikbd-channelnames
   [Ch1 Ch2 Ch3 Ch4 Ch5 Ch6 Ch7 Ch8
@@ -179,6 +136,11 @@
 	  (write 1)
 	  (write r0 r1 r2)
 	  (repeat)))
+     (if ((r0 & #xf0) == #xB0)
+	 ((r0 &= #xf)
+	  (write 2)
+	  (write r0 r1 r2)
+	  (repeat)))
      (repeat))))
 
 (defun midikbd-get-ts-lessp (pivot)
@@ -201,29 +163,7 @@ a \"pivot\" from within the sorted range."
   "Create one Midi process filter keeping state across calls."
   (let* ((state (make-vector 9 nil))
 	 (keypress (make-vector 2048 nil))
-	 (param-len [3 3])
-	 (hooks (vector
-		 (lambda (ts ch pitch velocity)
-		   (let ((res
-			  (list (aref midikbd-downnames pitch)
-				(list nil
-				      (aref midikbd-channelnames ch)
-				      (cons pitch velocity)
-				      ts))))
-		     (aset keypress (+ (* ch 128) pitch) res)
-		     (list res)))
-		 (lambda (ts ch pitch velocity)
-		   (let* ((idx (+ (* ch 128) pitch))
-			  (oldpress (prog1 (aref keypress idx)
-				      (aset keypress idx nil))))
-		     (and oldpress
-			  (list
-			   (list (aref midikbd-upnames pitch)
-				 (cadr oldpress)
-				 (list nil
-				       (aref midikbd-channelnames ch)
-				       (cons pitch velocity)
-				       ts)))))))))
+	 (param-len [3 3 3]))
     (lambda (_process string)
       (let* ((ct (current-time))
 	     (ts (+ (* (nth 0 ct) 65536000)
@@ -237,8 +177,15 @@ a \"pivot\" from within the sorted range."
 			       nconc
 			       (let* ((code (aref str i))
 				      (beg (1+ i)))
-				 (setq i (+ beg (aref param-len	code)))
-				 (apply (aref hooks code)
+				 (setq i (+ beg (aref param-len code)))
+				 (apply (lambda (ts ch pitch velocity)
+                                          (let ((res
+                                                 (list (aref midikbd-command-types code)
+                                                       (list nil
+                                                             (aref midikbd-channelnames ch)
+                                                             (cons pitch velocity)
+                                                             ts))))
+                                            (list res)))
 					ts
 					(append (substring str beg i)
 						nil))))))))))
@@ -282,12 +229,12 @@ devices."
 ;;;; ChangeLog:
 
 ;; 2015-10-11  David Kastrup  <dak@gnu.org>
-;; 
+;;
 ;; 	Add packages/midi-kbd/
-;; 
+;;
 ;; 	This introduces the package midi-kbd version 0.2 for converting raw
 ;; 	MIDI input into Emacs events.
-;; 
+;;
 
 
 (provide 'midi-kbd)
