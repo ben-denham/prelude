@@ -29,7 +29,9 @@
   (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
 
 ;; Enable Global Visual Line mode.
-(global-visual-line-mode t)
+;;(global-visual-line-mode t)
+;; Only enable visual line mode for text based editing.
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Unbind orgmode C-tab binding (which we use for something else)
 (add-hook 'org-mode-hook
@@ -39,5 +41,13 @@
 ;; Load direx to use instead of dired.
 (prelude-require-package 'direx)
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+
+;; PHP hook to indent 2 spaces.
+(add-hook 'php-mode-hook 'my-php-mode-hook)
+(defun my-php-mode-hook ()
+  "My PHP mode configuration."
+  (setq indent-tabs-mode nil
+        tab-width 2
+        c-basic-offset 2))
 
 ;;; preferences.el ends here
