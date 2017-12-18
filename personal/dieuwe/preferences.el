@@ -50,4 +50,10 @@
         tab-width 2
         c-basic-offset 2))
 
+;; JSON hook to indent 4 spaces (composer.json).
+(add-hook 'json-mode-hook
+  (lambda ()
+    (make-local-variable 'js-indent-level)
+    (setq js-indent-level 4)))
+
 ;;; preferences.el ends here
