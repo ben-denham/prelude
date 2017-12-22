@@ -5,6 +5,11 @@
 
 ;;; Code:
 
+;; Prevent crackling in timidity output: https://ubuntuforums.org/showthread.php?t=2008149
+(custom-set-variables
+ '(LilyPond-all-midi-command "timidity -ia --output-24bit")
+ '(LilyPond-midi-command "timidity --output-24bit"))
+
 (defvar midi-record nil
   "Whether the sustain pedal is pressed to start entering key-input.")
 
