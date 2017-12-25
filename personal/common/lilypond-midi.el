@@ -52,8 +52,8 @@
 ;;    lilypond-mode buffer, the MIDI controller will enter lilypond
 ;;    notes
 ;; 4. You can change the enharmonics entered by the MIDI controller
-;;    by running "M-x midi-select-key" and entering a key-name
-;;    (start with a capital for a major key). The default key is "C"
+;;    by running "M-x midi-select-key" and entering a key-name.
+;;    The default key is "c"
 ;; 4. Compile the lilypond PDF and MIDI file with "C-c C-l"
 ;; 5. Play the MIDI file on your MIDI synthesizer with "C-c <return>"
 ;; 6. Stop the MIDI output with "C-c C-g" or "M-x midi-stop"
@@ -81,7 +81,27 @@ with `aconnect -o`''"
 
 (defconst key-notes (make-hash-table)
   "A map of (major/minor) keys to the enharmonics for that key.")
-(puthash 'C '("c" "cis" "d" "dis" "e" "f" "fis" "g" "gis" "a" "ais" "b") key-notes)
+;; See chromatic scales:
+;; https://www.basicmusictheory.com/g-chromatic-scale
+(defconst sharp-notes '("c" "cis" "d" "dis" "e" "f" "fis" "g" "gis" "a" "ais" "b"))
+(defconst flat-notes '("c" "des" "d" "ees" "e" "f" "ges" "g" "aes" "a" "bes" "b"))
+(puthash 'c   sharp-notes key-notes)
+(puthash 'cis sharp-notes key-notes)
+(puthash 'des flat-notes key-notes)
+(puthash 'd   sharp-notes key-notes)
+(puthash 'dis sharp-notes key-notes)
+(puthash 'ees flat-notes key-notes)
+(puthash 'e   sharp-notes key-notes)
+(puthash 'f   flat-notes key-notes)
+(puthash 'fis sharp-notes key-notes)
+(puthash 'ges flat-notes key-notes)
+(puthash 'g   sharp-notes key-notes)
+(puthash 'gis sharp-notes key-notes)
+(puthash 'aes flat-notes key-notes)
+(puthash 'a   sharp-notes key-notes)
+(puthash 'ais sharp-notes key-notes)
+(puthash 'bes flat-notes key-notes)
+(puthash 'b   sharp-notes key-notes)
 
 ;; Stateful variables
 
@@ -89,7 +109,7 @@ with `aconnect -o`''"
   "Whether the sustain pedal is pressed to start entering MIDI
   input into lilypond files.")
 
-(defvar key 'C
+(defvar key 'c
   "The current key for choosing enharmonics of MIDI controller input.")
 
 (defvar midi-input-port default-midi-input-port
