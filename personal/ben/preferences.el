@@ -38,4 +38,18 @@
 (define-key php-mode-map (kbd "C-x C-;") 'phpcbf)
 ;;(add-hook 'php-mode-hook 'phpcbf-enable-on-save)
 
+;; ES6/JSX (https://gist.github.com/CodyReichert/9dbc8bd2a104780b64891d8736682cea)
+(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
+(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint json-jsonlist)))
+;; Enable eslint checker for web-mode
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; Enable flycheck globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(prelude-require-package 'add-node-modules-path)
+(add-hook 'flycheck-mode-hook 'add-node-modules-path)
+
 ;;; preferences.el ends here
